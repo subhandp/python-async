@@ -16,10 +16,15 @@ async def get_person(name):
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        p = await get_person("Keanu Reeves")
-        params = {"api_key": "4d2712aacf92b2b1158e877b2194e607"}
-        keanus = await fetch(session, f"https://api.themoviedb.org/3/person/{p['id']}/movie_credits",params)
+        p1 = await get_person("Keanu Reeves")
+        p2 = await get_person("Robert Downey Jr.")
+        p3 = await get_person("Tom Holland")
 
+        params = {"api_key": "4d2712aacf92b2b1158e877b2194e607"}
+        # keanus = await fetch(session, f"https://api.themoviedb.org/3/person/{p['id']}/movie_credits",params)
+        task = asyncio.create_task(fetch(session, f"https://api.themoviedb.org/3/person/{p1['id']}/movie_credits",params))
+
+        keanus = await task
         print("movies by keanus\n")
         i = 1
         for keanu in keanus['cast']:
