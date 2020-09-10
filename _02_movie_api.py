@@ -22,7 +22,8 @@ async def main():
 
         params = {"api_key": "4d2712aacf92b2b1158e877b2194e607"}
         # keanus = await fetch(session, f"https://api.themoviedb.org/3/person/{p['id']}/movie_credits",params)
-        task = asyncio.create_task(fetch(session, f"https://api.themoviedb.org/3/person/{p1['id']}/movie_credits",params))
+        url = "https://api.themoviedb.org/3/person/%s/movie_credits" % (p1['id'])
+        task = asyncio.create_task(fetch(session, url,params))
 
         keanus = await task
         print("movies by keanus\n")
